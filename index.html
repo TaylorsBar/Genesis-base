@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Karapiro Cartel | Genesis OS</title>
+    <meta name="description" content="Functional prototype — digital racedash, OBD telemetry, dyno lab. Not production-certified diagnostics." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-cyan': '#00F0FF',
+              'brand-blue': '#0099FF',
+              'brand-purple': '#BC13FE',
+              'brand-red': '#FF003C',
+              'brand-yellow': '#FCEE0A',
+              'surface-dark': '#050505',
+              'surface-panel': '#0A0A0A',
+              'surface-border': '#1F1F1F',
+            },
+            fontFamily: {
+              'sans': ['Inter', 'system-ui', 'sans-serif'],
+              'mono': ['JetBrains Mono', 'Roboto Mono', 'monospace'],
+              'display': ['Orbitron', 'sans-serif'],
+            },
+            backgroundImage: {
+              'carbon': "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzj//v37zwjjgzhhYWGMYAIAdZkKwz/CXYoAAAAASUVORK5CYII=')",
+              'mesh': "radial-gradient(#1a1a1a 1px, transparent 1px)"
+            },
+            screens: {
+              'xs': '480px',
+              'uw': '2000px',
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      :root {
+        --glass-bg: rgba(10, 10, 12, 0.75);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --neon-cyan: #00F0FF;
+        --neon-red: #FF003C;
+        --neon-glow: 0 0 10px rgba(0, 240, 255, 0.5);
+      }
+
+      body {
+        background-color: #050505;
+        color: #e0e0e0;
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+        overscroll-behavior: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #050505; 
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #333; 
+        border-radius: 0;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: var(--neon-cyan); 
+      }
+
+      .glass-panel {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+      }
+
+      .neon-text {
+        text-shadow: 0 0 5px rgba(0, 240, 255, 0.6);
+      }
+      
+      .scanline {
+        background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+        background-size: 100% 4px;
+        pointer-events: none;
+      }
+
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes ping {
+        75%, 100% { transform: scale(2); opacity: 0; }
+      }
+      @keyframes pulse {
+        50% { opacity: .5; }
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+        50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
+      }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root" class="h-screen w-screen flex flex-col"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
